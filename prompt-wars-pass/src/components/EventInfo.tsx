@@ -1,5 +1,5 @@
 import { Calendar, MapPin, Wrench, Sparkles } from 'lucide-react';
-import { BrandMark, CubeMark } from './BrandIcons';
+import { BrandMark} from './BrandIcons';
 
 const items = [
   {
@@ -74,7 +74,6 @@ export default function EventInfo() {
               <div className="text-xl font-extrabold text-white">AlGlorythm</div>
             </div>
           </div>
-          
         </div>
       </div>
     </section>
