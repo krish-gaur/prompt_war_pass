@@ -156,6 +156,11 @@ function drawNameCollege(ctx: CanvasRenderingContext2D, data: PassRenderData) {
   const collegeText = data.college.trim();
   const showPlaceholders = !!data.showPlaceholders;
 
+  // Cover "Your Name" placeholder rectangle with background matching the badge
+  // Rectangle measured from the original artwork where placeholder text was removed
+  ctx.fillStyle = '#04050c';
+  ctx.fillRect(233, 982, 570, 98);
+
   const name = nameText || (showPlaceholders ? PLACEHOLDER_NAME : '');
   if (name) {
     const size = fitFontSize(ctx, name, NAME.maxWidth, NAME.maxSize, NAME.minSize, NAME.weight);
@@ -167,6 +172,11 @@ function drawNameCollege(ctx: CanvasRenderingContext2D, data: PassRenderData) {
     ctx.fillText(name, PASS_WIDTH / 2, NAME.baseline, NAME.maxWidth);
     ctx.restore();
   }
+
+  // Cover "Your College" placeholder rectangle with background matching the badge
+  // Rectangle measured from the original artwork where placeholder text was removed
+  ctx.fillStyle = '#04050c';
+  ctx.fillRect(360, 1110, 303, 66);
 
   const college = collegeText || (showPlaceholders ? PLACEHOLDER_COLLEGE : '');
   if (college) {
