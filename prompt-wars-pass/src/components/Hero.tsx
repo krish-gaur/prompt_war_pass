@@ -77,7 +77,7 @@ export default function Hero() {
             style={{ transform: 'rotate(2.2deg)' }}
           >
             <div className="absolute -inset-6 rounded-[36px] bg-cyan-400/10 blur-2xl" aria-hidden="true" />
-            <div className="relative overflow-hidden rounded-[22px] border border-white/10">
+            <div className="relative rounded-[22px]">
               <PassCanvas name="" college="" photo={null} crop={null} placeholders decorative />
             </div>
           </div>

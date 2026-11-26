@@ -112,20 +112,34 @@ export default function ResultSection({
   };
 
   const handleLinkedIn = async () => {
+    const file = await buildFile();
+    if (file && canShareFiles()) {
+      const result = await sharePassFile(file, CAPTION);
+      if (result === 'shared' || result === 'cancelled') return;
+    }
     await copyText(CAPTION);
+    if (file) triggerDownload(file);
     openInNewTab(linkedInShareUrl());
-    notify('Caption copied — paste it and attach your pass image on LinkedIn.');
+    notify(
+      file
+        ? 'Pass downloaded and caption copied — attach the image to your LinkedIn post.'
+        : 'Caption copied — paste it and attach your pass image on LinkedIn.',
+    );
   };
 
   const handleWhatsApp = async () => {
-    if (canShareFiles()) {
-      const file = await buildFile();
-      if (file) {
-        const result = await sharePassFile(file, CAPTION);
-        if (result === 'shared') return;
-      }
+    const file = await buildFile();
+    if (file && canShareFiles()) {
+      const result = await sharePassFile(file, CAPTION);
+      if (result === 'shared' || result === 'cancelled') return;
     }
+    if (file) triggerDownload(file);
     openInNewTab(whatsAppShareUrl());
+    notify(
+      file
+        ? 'Pass downloaded — attach it in WhatsApp to share your Prompt Wars card.'
+        : 'Opening WhatsApp — attach your downloaded pass to share it.',
+    );
   };
 
   const handleInstagram = async () => {
@@ -147,7 +161,7 @@ export default function ResultSection({
   };
 
   return (
-    <section id="your-pass" className="relative py-16 sm:py-20">
+    <section id="your-pass" className="relative scroll-mt-20 py-16 sm:py-20">
       <div className="orb left-[-130px] top-24 h-[360px] w-[360px] bg-purple-600/20" aria-hidden="true" />
       <div className="orb right-[-100px] bottom-10 h-[320px] w-[320px] bg-cyan-500/15" aria-hidden="true" />
 
@@ -156,7 +170,7 @@ export default function ResultSection({
           {/* -------- Final pass showcase -------- */}
           <div className="relative mx-auto w-full max-w-[400px] lg:max-w-[440px]">
             <div className="absolute -inset-5 rounded-[36px] bg-gradient-to-br from-cyan-400/20 via-indigo-500/12 to-purple-500/20 blur-2xl" aria-hidden="true" />
-            <div className="animate-float relative overflow-hidden rounded-[24px] border border-white/10 neon-ring-strong">
+            <div className="animate-float relative rounded-[24px] neon-ring-strong">
               <PassCanvas
                 name={name}
                 college={college}

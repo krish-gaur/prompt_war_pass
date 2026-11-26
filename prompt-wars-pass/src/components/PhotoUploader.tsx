@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Cropper, { type Area } from 'react-easy-crop';
 import { Camera, Check, ImagePlus, RefreshCcw, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { loadImage, validateImageFile } from '../lib/image';
+import { PHOTO_ASPECT } from '../lib/drawPass';
 import type { CropPixels, PhotoState } from '../types';
 
 interface PhotoUploaderProps {
@@ -217,7 +218,7 @@ export default function PhotoUploader({ photo, onPhotoReady, onClear, openSignal
                 image={pendingUrl}
                 crop={crop}
                 zoom={zoom}
-                aspect={1}
+                aspect={PHOTO_ASPECT}
                 onCropChange={setCrop}
                 onZoomChange={setZoom}
                 onCropComplete={onCropComplete}

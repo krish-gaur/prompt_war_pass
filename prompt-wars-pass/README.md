@@ -12,9 +12,10 @@ identity pass in under a minute.
 
 ## ✨ Features
 
-- **Fixed master template** — the pass design (neon liquid energy waves, glowing borders, logos,
-  typography, PARTICIPANT badge) is rendered programmatically with the HTML Canvas API. Every
-  participant gets the exact same, consistent design — no AI image generation, no drift.
+- **Original master artwork** — the project owner's 1024 × 1536 Prompt Wars reference image is used
+  directly as the pass background. The original logos, liquid graphics, neon borders, typography,
+  photo frame, badge and tagline are preserved pixel-for-pixel. Only the participant photo, name and
+  college are overlaid — no redrawing, no AI recreation, no design drift.
 - **Photo upload with crop & zoom** — JPG / JPEG / PNG / WEBP up to 5 MB, drag & drop or file
   picker, reposition + zoom + replace, clipped perfectly inside the glowing photo frame.
 - **Live pass preview** — the pass updates as you type (name, college, photo).
@@ -67,7 +68,9 @@ prompt-wars-pass/
 ├── vite.config.ts             # Vite + React + Tailwind, deploy-ready config
 ├── tsconfig.json              # Strict TypeScript config
 ├── public/
-│   └── favicon.svg
+│   ├── favicon.svg
+│   └── assets/
+│       └── pass-template-clean.png   # Original artwork (placeholder text removed)
 └── src/
     ├── main.tsx               # Entry + self-hosted Poppins fonts
     ├── App.tsx                # State machine: form → generate → share
@@ -95,25 +98,28 @@ prompt-wars-pass/
 
 `src/lib/drawPass.ts` owns the entire composition:
 
-1. **Static background (built once, cached)** — black base, digital grid, tech accents, checker
-   detail, yellow/turquoise liquid energy ribbons (seeded, deterministic flow-band strokes),
-   the mid-right vortex, glowing rounded border, AlGlorythm + OSEN + Craftora logos, event info
-   row, the "Prompt Wars" wordmark with energy streaks, the empty photo frame with corner
-   brackets, the PARTICIPANT badge and the "Think • Prompt • Build" tagline.
-2. **Per-participant overlay** — the cropped photograph (clipped to the frame's rounded rect),
-   the participant's full name and college (auto-fit font sizes).
-3. **Frame redraw** — the glowing frame edge is drawn above the photo so the border is never
-   covered.
+1. **Original master artwork** — `public/assets/pass-template-clean.png` is the project owner's
+   original 1024 × 1536 reference image, with only the two placeholder strings ("Your Name" and
+   "Your College") removed. Every other pixel is byte-for-byte identical to the source artwork.
+   It is loaded once and drawn as the background of every pass.
+2. **Per-participant overlay** — only three things are drawn on top:
+   - the cropped photograph, clipped to the original photo frame (aspect-correct, never stretched);
+   - the participant's full name, in the original Poppins weight, size, position and white colour;
+   - the college / university name, in the original position, weight and colour.
+   Both text fields auto-shrink when needed so long names never overflow.
+3. **Single shared renderer** — `renderParticipantPass()` is used by the hero mock, live preview,
+   final showcase, PNG download and social sharing. The preview and the exported PNG are therefore
+   pixel-identical.
 
-The same renderer powers the hero mock, the live preview, the final showcase and the PNG export —
-so what you see is exactly what you download.
+The only regions that ever change are the photo frame, the name line and the college line.
+A pixel comparison against the original artwork outside those three regions returns zero difference.
 
 ## 📱 Sharing Behaviour
 
 | Channel | Behaviour |
 | --- | --- |
-| LinkedIn | Opens the LinkedIn share dialog for the event page and copies the prewritten announcement to your clipboard so you can paste it and attach your pass image. |
-| WhatsApp | Uses the native share sheet with the pass image where supported (`navigator.share` with files), otherwise opens `wa.me` with the prewritten caption. |
+| LinkedIn | Uses the native share sheet with the pass PNG where supported. Otherwise downloads the pass, copies the prewritten announcement and opens the LinkedIn share dialog so you can attach the image. |
+| WhatsApp | Uses the native share sheet with the pass PNG where supported (`navigator.share` with files). Otherwise downloads the pass and opens `wa.me` with the prewritten caption so you can attach it. |
 | Instagram | Instagram has no direct web publishing API — the app shares/downloads the image through the native share sheet on mobile (pick Instagram) and shows clear instructions for feed/story posting. |
 | Copy announcement | One tap copies the official caption + hashtags. |
 | Download again | Re-exports the full-resolution PNG anytime. |

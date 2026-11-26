@@ -57,7 +57,7 @@ export default function PassCanvas({
           : 'Your Prompt Wars participant pass'
       }
       role="img"
-      className={`block h-auto w-full rounded-[22px] ${className}`}
+      className={`block h-auto w-full bg-[#04050c] ${className}`}
     />
   );
 }

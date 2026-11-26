@@ -40,7 +40,7 @@ export default function PassCreator({
   };
 
   return (
-    <section id="creator" className="relative py-16 sm:py-20">
+    <section id="creator" className="relative scroll-mt-20 py-16 sm:py-20">
       <div className="orb right-[-120px] top-20 h-[340px] w-[340px] bg-cyan-500/15" aria-hidden="true" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
@@ -160,7 +160,7 @@ export default function PassCreator({
 
             <div className="relative mx-auto w-full max-w-[380px] sm:max-w-[420px] lg:max-w-none">
               <div className="absolute -inset-3 rounded-[30px] bg-gradient-to-br from-cyan-400/15 via-indigo-500/10 to-purple-500/15 blur-xl" aria-hidden="true" />
-              <div className="relative overflow-hidden rounded-[22px] border border-white/10 neon-ring">
+              <div className="relative rounded-[22px] neon-ring">
                 <PassCanvas
                   name={name}
                   college={college}

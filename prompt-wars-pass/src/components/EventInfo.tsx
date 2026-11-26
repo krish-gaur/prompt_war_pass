@@ -30,7 +30,7 @@ const items = [
 
 export default function EventInfo() {
   return (
-    <section id="event-info" className="relative py-20 sm:py-24">
+    <section id="event-info" className="relative scroll-mt-20 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <div className="text-[11px] font-bold uppercase tracking-[0.32em] text-cyan-300">
