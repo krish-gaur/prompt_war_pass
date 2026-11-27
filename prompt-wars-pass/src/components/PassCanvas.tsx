@@ -4,7 +4,7 @@ import type { CropPixels } from '../types';
 
 interface PassCanvasProps {
   name: string;
-  college: string;
+  organisation: string;
   photo?: HTMLImageElement | null;
   crop?: CropPixels | null;
   placeholders?: boolean;
@@ -14,11 +14,11 @@ interface PassCanvasProps {
 
 /**
  * Renders the master 1024x1536 pass template with the participant's
- * photo + name + college overlaid. CSS scales it responsively.
+ * photo + name + organisation overlaid. CSS scales it responsively.
  */
 export default function PassCanvas({
   name,
-  college,
+  organisation,
   photo,
   crop,
   placeholders = true,
@@ -35,7 +35,7 @@ export default function PassCanvas({
     frameRef.current = requestAnimationFrame(() => {
       void renderPass(canvas, {
         name,
-        college,
+        organisation,
         photo: photo ?? null,
         crop: crop ?? null,
         showPlaceholders: placeholders,
@@ -44,7 +44,7 @@ export default function PassCanvas({
     return () => {
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     };
-  }, [name, college, photo, crop, placeholders]);
+  }, [name, organisation, photo, crop, placeholders]);
 
   return (
     <canvas

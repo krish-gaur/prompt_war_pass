@@ -30,7 +30,7 @@ import type { PhotoState } from '../types';
 
 interface ResultSectionProps {
   name: string;
-  college: string;
+  organisation: string;
   photo: PhotoState | null;
   onEditDetails: () => void;
   onChangePhoto: () => void;
@@ -40,7 +40,7 @@ interface ResultSectionProps {
 
 export default function ResultSection({
   name,
-  college,
+  organisation,
   photo,
   onEditDetails,
   onChangePhoto,
@@ -64,7 +64,7 @@ export default function ResultSection({
       }
       await renderPass(canvas, {
         name: name.trim(),
-        college: college.trim(),
+        organisation: organisation.trim(),
         photo: photo?.img ?? null,
         crop: photo?.crop ?? null,
         showPlaceholders: false,
@@ -173,7 +173,7 @@ export default function ResultSection({
             <div className="animate-float relative rounded-[24px] neon-ring-strong">
               <PassCanvas
                 name={name}
-                college={college}
+                organisation={organisation}
                 photo={photo?.img ?? null}
                 crop={photo?.crop ?? null}
                 placeholders={false}
@@ -194,7 +194,7 @@ export default function ResultSection({
               Your pass is ready, <span className="text-gradient">{displayName}</span>!
             </h2>
             <p className="mt-3 text-slate-400">
-              {college.trim() || 'Your college'} · Participant · Prompt Wars 2026 by AlGlorythm
+              {organisation.trim() || 'Your organisation'} · Participant · Prompt Wars 2026 by AlGlorythm
             </p>
 
             <button

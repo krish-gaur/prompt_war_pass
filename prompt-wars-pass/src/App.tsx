@@ -15,7 +15,7 @@ function scrollTo(id: string) {
 
 export default function App() {
   const [name, setName] = useState('');
-  const [college, setCollege] = useState('');
+  const [organisation, setorganisation] = useState('');
   const [photo, setPhoto] = useState<PhotoState | null>(null);
   const [generated, setGenerated] = useState(false);
   const [openSignal, setOpenSignal] = useState(0);
@@ -63,7 +63,7 @@ export default function App() {
   const handleCreateAnother = useCallback(() => {
     handlePhotoClear();
     setName('');
-    setCollege('');
+    setorganisation('');
     setGenerated(false);
     notify('Fresh start! Create another pass below.');
     window.setTimeout(() => scrollTo('creator'), 120);
@@ -76,11 +76,11 @@ export default function App() {
         <Hero />
         <PassCreator
           name={name}
-          college={college}
+          organisation={organisation}
           photo={photo}
           openSignal={openSignal}
           onNameChange={setName}
-          onCollegeChange={setCollege}
+          onorganisationChange={setorganisation}
           onPhotoReady={handlePhotoReady}
           onPhotoClear={handlePhotoClear}
           onGenerate={handleGenerate}
@@ -89,7 +89,7 @@ export default function App() {
           <ResultSection
             key={resultKey.current}
             name={name}
-            college={college}
+            organisation={organisation}
             photo={photo}
             onEditDetails={handleEditDetails}
             onChangePhoto={handleChangePhoto}

@@ -17,7 +17,7 @@ export interface PhotoState {
 
 export interface PassRenderData {
   name: string;
-  college: string;
+  organisation: string;
   photo?: HTMLImageElement | HTMLCanvasElement | null;
   crop?: CropPixels | null;
   /** Render dimmed template text when fields are empty (preview only). */

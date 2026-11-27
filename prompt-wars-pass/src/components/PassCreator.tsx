@@ -6,11 +6,11 @@ import type { PhotoState } from '../types';
 
 interface PassCreatorProps {
   name: string;
-  college: string;
+  organisation: string;
   photo: PhotoState | null;
   openSignal: number;
   onNameChange: (v: string) => void;
-  onCollegeChange: (v: string) => void;
+  onorganisationChange: (v: string) => void;
   onPhotoReady: (p: PhotoState) => void;
   onPhotoClear: () => void;
   onGenerate: () => void;
@@ -18,11 +18,11 @@ interface PassCreatorProps {
 
 export default function PassCreator({
   name,
-  college,
+  organisation,
   photo,
   openSignal,
   onNameChange,
-  onCollegeChange,
+  onorganisationChange,
   onPhotoReady,
   onPhotoClear,
   onGenerate,
@@ -30,12 +30,12 @@ export default function PassCreator({
   const [touched, setTouched] = useState(false);
 
   const nameError = touched && !name.trim() ? 'Please enter your full name.' : null;
-  const collegeError = touched && !college.trim() ? 'Please enter your college or university.' : null;
+  const organisationError = touched && !organisation.trim() ? 'Please enter your organisation or university.' : null;
   const photoError = touched && !photo ? 'Please upload your photograph.' : null;
 
   const handleGenerate = () => {
     setTouched(true);
-    if (!photo || !name.trim() || !college.trim()) return;
+    if (!photo || !name.trim() || !organisation.trim()) return;
     onGenerate();
   };
 
@@ -102,29 +102,29 @@ export default function PassCreator({
 
               <div>
                 <label
-                  htmlFor="college"
+                  htmlFor="organisation"
                   className="mb-2.5 flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.22em] text-slate-300"
                 >
-                  <GraduationCap size={14} className="text-purple-300" /> C. Your college / university{' '}
+                  <GraduationCap size={14} className="text-purple-300" /> C. Your organisation / university{' '}
                   <span className="text-cyan-400">*</span>
                 </label>
                 <input
-                  id="college"
+                  id="organisation"
                   type="text"
-                  value={college}
+                  value={organisation}
                   maxLength={58}
                   autoComplete="organization"
                   placeholder="e.g. Delhi Technological University"
-                  onChange={(e) => onCollegeChange(e.target.value)}
-                  className={`field ${collegeError ? '!border-rose-400/70' : ''}`}
+                  onChange={(e) => onorganisationChange(e.target.value)}
+                  className={`field ${organisationError ? '!border-rose-400/70' : ''}`}
                 />
-                {collegeError ? (
+                {organisationError ? (
                   <p role="alert" className="mt-2 text-[12.5px] font-medium text-rose-300">
-                    {collegeError}
+                    {organisationError}
                   </p>
                 ) : (
                   <p className="mt-2 text-[11.5px] text-slate-500">
-                    Full college or university name — it will resize automatically to fit.
+                    Full organisation or university name — it will resize automatically to fit.
                   </p>
                 )}
               </div>
@@ -163,7 +163,7 @@ export default function PassCreator({
               <div className="relative rounded-[22px] neon-ring">
                 <PassCanvas
                   name={name}
-                  college={college}
+                  organisation={organisation}
                   photo={photo?.img ?? null}
                   crop={photo?.crop ?? null}
                   placeholders

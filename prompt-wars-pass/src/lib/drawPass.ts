@@ -8,10 +8,10 @@ import type { CropPixels, PassRenderData } from '../types';
 /*  Only three things are ever added on top:                           */
 /*    1. the participant photograph, inside the original frame         */
 /*    2. the participant name                                          */
-/*    3. the college / university name                                 */
+/*    3. the organisation / university name                                 */
 /*                                                                     */
 /*  `pass-template-clean.png` is the original artwork with ONLY the    */
-/*  two placeholder text strings ("Your Name" / "Your College")       */
+/*  two placeholder text strings ("Your Name" / "Your organisation")       */
 /*  removed. Every other pixel is byte-for-byte identical.             */
 /* ------------------------------------------------------------------ */
 
@@ -33,7 +33,7 @@ const NAME = {
   weight: 700,
 };
 
-const COLLEGE = {
+const organisation = {
   baseline: 1152,
   maxWidth: 800,
   maxSize: 40,
@@ -42,7 +42,7 @@ const COLLEGE = {
 };
 
 const PLACEHOLDER_NAME = 'Your Name';
-const PLACEHOLDER_COLLEGE = 'Your College';
+const PLACEHOLDER_organisation = 'Your organisation';
 
 /* ------------------------------- helpers --------------------------- */
 function rr(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
@@ -150,10 +150,10 @@ function drawParticipantPhoto(
   ctx.restore();
 }
 
-/* --------------------------- name + college ------------------------- */
-function drawNameCollege(ctx: CanvasRenderingContext2D, data: PassRenderData) {
+/* --------------------------- name + organisation ------------------------- */
+function drawNameorganisation(ctx: CanvasRenderingContext2D, data: PassRenderData) {
   const nameText = data.name.trim();
-  const collegeText = data.college.trim();
+  const organisationText = data.organisation.trim();
   const showPlaceholders = !!data.showPlaceholders;
 
   // Cover "Your Name" placeholder rectangle with background matching the badge
@@ -173,20 +173,20 @@ function drawNameCollege(ctx: CanvasRenderingContext2D, data: PassRenderData) {
     ctx.restore();
   }
 
-  // Cover "Your College" placeholder rectangle with background matching the badge
+  // Cover "Your organisation" placeholder rectangle with background matching the badge
   // Rectangle measured from the original artwork where placeholder text was removed
   ctx.fillStyle = '#04050c';
   ctx.fillRect(360, 1110, 303, 66);
 
-  const college = collegeText || (showPlaceholders ? PLACEHOLDER_COLLEGE : '');
-  if (college) {
-    const size = fitFontSize(ctx, college, COLLEGE.maxWidth, COLLEGE.maxSize, COLLEGE.minSize, COLLEGE.weight);
+  const organisationLabel = organisationText || (showPlaceholders ? PLACEHOLDER_organisation : '');
+  if (organisationLabel) {
+    const size = fitFontSize(ctx, organisationLabel, organisation.maxWidth, organisation.maxSize, organisation.minSize, organisation.weight);
     ctx.save();
-    ctx.font = `${COLLEGE.weight} ${size}px ${FONT}`;
+    ctx.font = `${organisation.weight} ${size}px ${FONT}`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(college, PASS_WIDTH / 2, COLLEGE.baseline, COLLEGE.maxWidth);
+    ctx.fillText(organisationLabel, PASS_WIDTH / 2, organisation.baseline, organisation.maxWidth);
     ctx.restore();
   }
 }
@@ -223,8 +223,8 @@ export async function renderParticipantPass(
     drawParticipantPhoto(ctx, data.photo, data.crop);
   }
 
-  // 3. Name + college in the original positions and typography.
-  drawNameCollege(ctx, data);
+  // 3. Name + organisation in the original positions and typography.
+  drawNameorganisation(ctx, data);
 }
 
 /** Backwards-compatible alias used across the app. */
@@ -242,4 +242,4 @@ export async function renderPassToBlob(data: PassRenderData): Promise<Blob> {
   });
 }
 
-export const passLayout = { PHOTO, NAME, COLLEGE };
+export const passLayout = { PHOTO, NAME, organisation };

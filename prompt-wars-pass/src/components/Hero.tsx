@@ -31,7 +31,7 @@ export default function Hero() {
             Create your official participant pass in seconds.
           </p>
           <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-slate-400 lg:mx-0">
-            Your Prompt Wars identity starts here — upload your photo, add your name and college,
+            Your Prompt Wars identity starts here — upload your photo, add your name and organisation,
             and download a premium pass built to be shared on LinkedIn, Instagram and WhatsApp.
           </p>
 
@@ -78,7 +78,7 @@ export default function Hero() {
           >
             <div className="absolute -inset-6 rounded-[36px] bg-cyan-400/10 blur-2xl" aria-hidden="true" />
             <div className="relative rounded-[22px]">
-              <PassCanvas name="" college="" photo={null} crop={null} placeholders decorative />
+              <PassCanvas name="" organisation="" photo={null} crop={null} placeholders decorative />
             </div>
           </div>
           <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-cyan-300/30 bg-[#071022]/90 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-200 shadow-lg">
